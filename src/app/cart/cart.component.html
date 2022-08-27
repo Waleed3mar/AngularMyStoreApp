@@ -1,0 +1,74 @@
+<div class="cont">
+  <div>
+    <div *ngFor="let product of products" class="cart-container">
+      <img src="{{ product.url }}" alt="" />
+      <div class="cart-item-details">
+        <p>{{ product.name }}</p>
+        <p>{{ product.description }}</p>
+        <p>{{ product.price }}</p>
+        <div>
+          <button class="remove-to-cart" (click)="removeFromCart(product)">
+            Remove
+          </button>
+        </div>
+        <span>Amount:</span>
+        <input
+          class="select-input"
+          min="1"
+          max="12"
+          type="number"
+          value="{{ product.quantity }}"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="sFrom">
+    <form #form="ngForm" (ngSubmit)="onSubmit()">
+      <label for="">Full name</label>
+      <input
+        required
+        minlength="3"
+        name="name"
+        type="text"
+        placeholder="(min 3 Characters)"
+        [(ngModel)]="name"
+      />
+      <label for="">Address</label>
+      <input
+        required
+        minlength="6"
+        name="address"
+        type="text"
+        placeholder="(min 6 Characters)"
+        [(ngModel)]="address"
+      />
+      <label for="">Credit card number</label>
+      <input
+        required
+        min="16"
+        max="16"
+        name="card"
+        type="number"
+        placeholder="(16-digit number)"
+        [(ngModel)]="card"
+      />
+      <div style="font-size: 0.9em; color: grey">
+        We'll never share your payment details with any else
+      </div>
+
+      <input
+        class="submit"
+        [disabled]="form.invalid"
+        type="submit"
+        value="Submit"
+      />
+    </form>
+
+    <div>
+      <h2 [(ngModel)]="total" style="max-width: 250px">
+        Total Price: {{ totalPrice }}$
+      </h2>
+    </div>
+  </div>
+</div>
