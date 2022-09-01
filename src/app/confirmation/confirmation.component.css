@@ -12,10 +12,27 @@
   }
   
   .confirmation-header {
+    position: relative;
+    top: -140px;
+    right: -240px;
     display: block;
     color: #33e5bc
   }
   
   .confirmation-items p {
     margin-bottom: 30px;
+  }
+
+  .back-btn{/* margin-top: 10px; */
+    background-color: rgb(255, 185, 79);
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #ddd;
+    transition: .3s ease-in-out all;
+  }
+  .back-btn:hover{
+    /* margin-top: 10px; */
+    background-color: rgb(190, 148, 58);
+    
   }

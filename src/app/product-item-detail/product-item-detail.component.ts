@@ -11,10 +11,9 @@ import { CartService } from '../services/cart.service';
 })
 export class ProductItemDetailComponent implements OnInit {
 
-  @Input() productDetails:Item;
+  productDetails:Item;
   tempQuantity= 1
 
-  // product : Item[] = []
   id =0 ;
   
   constructor(private prodService:ProductService,private cartService:CartService) { 
@@ -24,7 +23,8 @@ export class ProductItemDetailComponent implements OnInit {
       url:'',
       description:'',
       price:0,
-      quantity:0
+      quantity:0,
+      totalPrice:0
 
     }
   }
@@ -34,6 +34,7 @@ export class ProductItemDetailComponent implements OnInit {
   }
   addToCart(): void{
     this.productDetails.quantity = this.tempQuantity;
+    this.productDetails.totalPrice = this.productDetails.price *this.productDetails.quantity
     this.cartService.addToCart(this.productDetails);
 
     // if (!this.z){this.item.quantity = 1}

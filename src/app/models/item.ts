@@ -5,6 +5,7 @@ export class Item {
     url: string;
     description: string;
     quantity:number
+    totalPrice:number
     
 
     constructor(){
@@ -13,6 +14,7 @@ export class Item {
         this.price = 0;
         this.url = '';
         this.description = '';
-        this.quantity =0
+        this.quantity =0;
+        this.totalPrice= this.price
     }
 }

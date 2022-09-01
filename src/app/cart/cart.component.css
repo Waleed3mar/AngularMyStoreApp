@@ -104,3 +104,23 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+.nothing-here{
+display: block;
+  width: 305px;
+  padding: 15px;
+  padding-top: 0px;
+  border-radius: 10px;
+  font-size: 1.5em;
+  color: grey;
+  background-color: lightgray;
+}
+.nothing-here p {
+  height: 10px;
+}
+
+.back-link{
+  text-decoration: none;
+  margin-top: 0px;
+  margin-left: 518px;
+}

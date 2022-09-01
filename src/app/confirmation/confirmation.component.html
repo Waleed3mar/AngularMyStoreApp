@@ -1,7 +1,6 @@
 <div class="confirmation-container">
   <div class="confirmation-header"><h1>Success!</h1></div>
   <div class="confirmation-items">
-    <br />
     <p>
       Thanks you, <span style="font-weight: bold">{{ user.name }}!</span>
     </p>
@@ -10,6 +9,8 @@
       confirmed!
     </p>
     <p>Please Allow 1-3 business day(s) for shipping.</p>
-    <a routerLink="/"><button>Back to product List</button></a>
+    <a (click)="clerServ()" routerLink="/"
+      ><button class="back-btn">Back to product List</button></a
+    >
   </div>
 </div>

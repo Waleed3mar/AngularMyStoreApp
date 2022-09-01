@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Item } from '../models/item';
 import { Router } from '@angular/router';
 import { CartService } from '../services/cart.service';
 import { userInfo } from '../types/userInfo.type';
 import { SubmitService } from '../services/submit.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-cart',
@@ -13,47 +14,53 @@ import { SubmitService } from '../services/submit.service';
 export class CartComponent implements OnInit {
 
   products: Item[] = [];
-  // quantity = 0
-  test:any = [];
   totalPrice=0
+  sub:Subscription;
+  sub2:Subscription;
 
   tempQuantity = 1
+  count = 0
 
   //confirmation values
   name=''
   address=''
-  card=0
+  card= 1324567851235479
   total=this.totalPrice
   
 
-  constructor(private cartService:CartService, private submitService:SubmitService, private router: Router) {}
+  constructor(private cartService:CartService, private submitService:SubmitService, private router: Router) {
+    this.sub = this.cartService.products$.subscribe((products) => {
+      this.products = products
+    } );
+    this.sub2 = this.cartService.price$.subscribe((price) => {
+      this.totalPrice = Math.round(price)
+    } );
+  }
 
   ngOnInit(): void {
-    
-    this.products = this.cartService.getCart()
-    
-    // this.products = this.test;
-    
 
-    for(let i=0;i<this.products.length; i++){
-      const x = this.products[i];
-      this.totalPrice += ( x.quantity * x.price); 
-    }
   }
 
-  removeFromCart(product:Item): void{
-    this.products = this.products.filter(p => p.id !== product.id)
-    this.cartService.removeFromCart(product)
-  }
   onSubmit() {
+    if(this.totalPrice==0){
+      alert("You Didn't Order Any Item!" )
+      return
+    }
+
     const form: userInfo = {
       name: this.name,
       address: this.address,
       card: this.card,
-      total: this.total
+      total: this.totalPrice
     }
     this.submitService.checkOut(form);
+    this.cartService.clearCart();
     this.router.navigate(['/confirmation'])
   }
-
+  
+  // ngOnDistroy(){
+  //     this.sub.unsubscribe()
+  //     this.sub2.unsubscribe()
+  //     console.log('destroyed')
+  //   }  
 }

@@ -24,7 +24,8 @@ tempQuantity= 1
     price: 0,
     url: '',
     description:'',
-    quantity:0
+    quantity:0,
+    totalPrice:0
       }
   }
 
@@ -34,12 +35,10 @@ tempQuantity= 1
 
   addToCart(): void{
     this.item.quantity = this.tempQuantity;
+    this.item.totalPrice = this.item.price *this.item.quantity
     this.cartService.addToCart(this.item);
 
-    // if (!this.z){this.item.quantity = 1}
-
     window.alert('item added')
-    
   }
   pushProduct(item:Item){
     this.prodService.sendProduct(item)

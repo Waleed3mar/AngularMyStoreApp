@@ -1,4 +1,4 @@
-<div class="cont">
+<!-- <div class="cont">
   <div>
     <div *ngFor="let product of products" class="cart-container">
       <img src="{{ product.url }}" alt="" />
@@ -17,58 +17,84 @@
           min="1"
           max="12"
           type="number"
-          value="{{ product.quantity }}"
+          value="{{ this.product.quantity }}"
         />
       </div>
     </div>
-  </div>
+  </div> -->
 
-  <div class="sFrom">
-    <form #form="ngForm" (ngSubmit)="onSubmit()">
-      <label for="">Full name</label>
-      <input
-        required
-        minlength="3"
-        name="name"
-        type="text"
-        placeholder="(min 3 Characters)"
-        [(ngModel)]="name"
-      />
-      <label for="">Address</label>
-      <input
-        required
-        minlength="6"
-        name="address"
-        type="text"
-        placeholder="(min 6 Characters)"
-        [(ngModel)]="address"
-      />
-      <label for="">Credit card number</label>
-      <input
-        required
-        min="16"
-        max="16"
-        name="card"
-        type="number"
-        placeholder="(16-digit number)"
-        [(ngModel)]="card"
-      />
-      <div style="font-size: 0.9em; color: grey">
-        We'll never share your payment details with any else
-      </div>
+<!-- <app-cart-item (removePrice)="removePrice($event)"></app-cart-item> -->
+<div class="nothing-here cart-container" *ngIf="this.products.length == 0">
+  <p>There Is Nothing here 😢,</p>
+</div>
+<a class="back-link cart-container" routerLink="/">back to shop</a>
+<app-cart-item
+  *ngFor="let product of products"
+  [products]="product"
+></app-cart-item>
 
-      <input
-        class="submit"
-        [disabled]="form.invalid"
-        type="submit"
-        value="Submit"
-      />
-    </form>
-
-    <div>
-      <h2 [(ngModel)]="total" style="max-width: 250px">
-        Total Price: {{ totalPrice }}$
-      </h2>
+<div class="sFrom">
+  <form #form="ngForm" (ngSubmit)="onSubmit()">
+    <label for="">Full name</label>
+    <input
+      required
+      minlength="3"
+      name="name"
+      type="text"
+      placeholder="(min 3 Characters)"
+      [(ngModel)]="name"
+      [style.border-color]="name.length < 3 ? 'red' : ''"
+    />
+    <pre style="color: red" *ngIf="name.length < 3">3 Characters Minimum</pre>
+    <label for="">Address</label>
+    <input
+      required
+      minlength="6"
+      name="address"
+      type="text"
+      placeholder="(min 6 Characters)"
+      [(ngModel)]="address"
+      [style.border-color]="address.length < 6 ? 'red' : ''"
+    />
+    <pre style="color: red" *ngIf="name.length < 3">6 Characters Minimum</pre>
+    <label for="">Credit card number</label>
+    <input
+      style="color: grey"
+      onfocus="this.select()"
+      required
+      name="card"
+      type="number"
+      min="1000000000000000"
+      max="9999999999999999"
+      placeholder="(16-digit number)"
+      [(ngModel)]="card"
+      [style.border-color]="
+        card.toString().length < 16 || card.toString().length > 16 ? 'red' : ''
+      "
+    />
+    <pre
+      style="color: red"
+      *ngIf="card.toString().length < 16 || card.toString().length > 16"
+    >
+Only 16-digit Card Allowd</pre
+    >
+    <div style="font-size: 0.9em; color: grey">
+      We'll never share your payment details with any else
     </div>
+
+    <input
+      class="submit"
+      [disabled]="form.invalid"
+      type="submit"
+      [style.background-color]="form.invalid ? 'red' : ''"
+      [value]="form.invalid ? 'Fill The Form' : 'Submit'"
+      value="Submit"
+    />
+  </form>
+
+  <div>
+    <h2 [(ngModel)]="total" style="max-width: 250px">
+      Total Price: {{ totalPrice }}$
+    </h2>
   </div>
 </div>

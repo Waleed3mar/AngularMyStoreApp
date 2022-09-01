@@ -1,1 +1,27 @@
-<p>cart-item works!</p>
+<div class="cont">
+  <div>
+    <div class="cart-container">
+      <img src="{{ products.url }}" alt="" />
+      <div class="cart-item-details">
+        <p>{{ products.name }}</p>
+        <p>{{ products.description }}</p>
+        <p>{{ products.price }}</p>
+        <div>
+          <button class="remove-to-cart" (click)="removeFromCart(products)">
+            Remove
+          </button>
+        </div>
+        <span>Amount:</span>
+        <input
+          min="0"
+          max="99"
+          class="select-input"
+          type="number"
+          value="{{ this.products.quantity }}"
+          [(ngModel)]="this.products.quantity"
+          (ngModelChange)="changeQuantity(this.products.id, $event)"
+        />
+      </div>
+    </div>
+  </div>
+</div>

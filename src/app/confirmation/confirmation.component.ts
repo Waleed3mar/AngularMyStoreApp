@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { CartService } from '../services/cart.service';
 import { SubmitService } from '../services/submit.service';
 import { userInfo } from '../types/userInfo.type';
+
 
 @Component({
   selector: 'app-confirmation',
@@ -11,7 +13,7 @@ export class ConfirmationComponent implements OnInit {
   
   user: userInfo
 
-  constructor(private submitService:SubmitService) { 
+  constructor(private submitService:SubmitService, private cartService:CartService) { 
     this.user = {
       name: '',
       address: '',
@@ -29,5 +31,8 @@ export class ConfirmationComponent implements OnInit {
     // this.total = this.confirm.Total
   }
 
+  clerServ(){
+    this.cartService.clearCart();
 
+  }
 }
